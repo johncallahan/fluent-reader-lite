@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:fluent_reader_lite/components/list_tile_group.dart';
 import 'package:fluent_reader_lite/components/my_list_tile.dart';
-import 'package:fluent_reader_lite/generated/l10n.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:fluent_reader_lite/utils/colors.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -56,10 +56,10 @@ class _TextEditorPage extends State<TextEditorPage> {
       showCupertinoDialog(
         context: context,
         builder: (context) => CupertinoAlertDialog(
-          title: Text(S.of(context).invalidValue),
+          title: Text(AppLocalizations.of(context).invalidValue),
           actions: [
             CupertinoDialogAction(
-              child: Text(S.of(context).close),
+              child: Text(AppLocalizations.of(context).close),
               isDefaultAction: true,
               onPressed: () { Navigator.of(context).pop(); },
             ),
@@ -80,7 +80,7 @@ class _TextEditorPage extends State<TextEditorPage> {
           padding: EdgeInsets.zero,
           child: _validating
             ? CupertinoActivityIndicator()
-            : Text(widget.saveText ?? S.of(context).save),
+            : Text(widget.saveText ?? AppLocalizations.of(context).save),
           onPressed: _validating ? null : _onSave,
         ),
       ),

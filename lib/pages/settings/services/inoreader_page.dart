@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:fluent_reader_lite/components/list_tile_group.dart';
 import 'package:fluent_reader_lite/components/my_list_tile.dart';
-import 'package:fluent_reader_lite/generated/l10n.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:fluent_reader_lite/models/services/greader.dart';
 import 'package:fluent_reader_lite/models/services/service_import.dart';
 import 'package:fluent_reader_lite/models/sync_model.dart';
@@ -69,7 +69,7 @@ class _InoreaderPageState extends State<InoreaderPage> {
   void _editUsername() async {
     final String username = await Navigator.of(context).push(CupertinoPageRoute(
       builder: (context) => TextEditorPage(
-        S.of(context).username, 
+        AppLocalizations.of(context).username, 
         Utils.notEmpty,
         initialValue: _username,
       ),
@@ -81,7 +81,7 @@ class _InoreaderPageState extends State<InoreaderPage> {
   void _editPassword() async {
     final String password = await Navigator.of(context).push(CupertinoPageRoute(
       builder: (context) => TextEditorPage(
-        S.of(context).password, 
+        AppLocalizations.of(context).password, 
         Utils.notEmpty,
         inputType: TextInputType.visiblePassword,
       ),
@@ -159,18 +159,18 @@ class _InoreaderPageState extends State<InoreaderPage> {
     final bool confirmed = await showCupertinoDialog(
       context: context,
       builder: (context) => CupertinoAlertDialog(
-        title: Text(S.of(context).logOutWarning),
+        title: Text(AppLocalizations.of(context).logOutWarning),
         actions: [
           CupertinoDialogAction(
             isDefaultAction: true,
-            child: Text(S.of(context).cancel),
+            child: Text(AppLocalizations.of(context).cancel),
             onPressed: () {
               Navigator.of(context).pop();
             },
           ),
           CupertinoDialogAction(
             isDestructiveAction: true,
-            child: Text(S.of(context).confirm),
+            child: Text(AppLocalizations.of(context).confirm),
             onPressed: () {
               Navigator.of(context).pop(true);
             },
@@ -202,47 +202,47 @@ class _InoreaderPageState extends State<InoreaderPage> {
       _endpointOptions.map((e) => Tuple2(e, e)).toList(),
       _endpoint,
       (e) { setState(() { _endpoint = e; } ); },
-      title: S.of(context).endpoint,
+      title: AppLocalizations.of(context).endpoint,
     );
     final inputs = ListTileGroup([
       MyListTile(
-        title: Text(S.of(context).username),
+        title: Text(AppLocalizations.of(context).username),
         trailing: Text(_username.length == 0
-          ? S.of(context).enter
-          : S.of(context).entered),
+          ? AppLocalizations.of(context).enter
+          : AppLocalizations.of(context).entered),
         onTap: _editUsername,
       ),
       MyListTile(
-        title: Text(S.of(context).password),
+        title: Text(AppLocalizations.of(context).password),
         trailing: Text(_password.length == 0
-          ? S.of(context).enter
-          : S.of(context).entered),
+          ? AppLocalizations.of(context).enter
+          : AppLocalizations.of(context).entered),
         onTap: _editPassword,
       ),
       MyListTile(
         title: Text("API ID"),
         trailing: Text(_apiId.length == 0
-          ? S.of(context).enter
-          : S.of(context).entered),
+          ? AppLocalizations.of(context).enter
+          : AppLocalizations.of(context).entered),
         onTap: _editAPIId,
       ),
       MyListTile(
         title: Text("API Key"),
         trailing: Text(_apiKey.length == 0
-          ? S.of(context).enter
-          : S.of(context).entered),
+          ? AppLocalizations.of(context).enter
+          : AppLocalizations.of(context).entered),
         onTap: _editAPIKey,
         withDivider: false,
       ),
-    ], title: S.of(context).credentials);
+    ], title: AppLocalizations.of(context).credentials);
     final getKeyItems = ListTileGroup([
       MyListTile(
-        title: Text(S.of(context).getApiKey),
+        title: Text(AppLocalizations.of(context).getApiKey),
         onTap: _getKey,
       ),
       MyListTile(
         title: Text(
-          S.of(context).getApiKeyHint,
+          AppLocalizations.of(context).getApiKeyHint,
           style: TextStyle(color: CupertinoColors.secondaryLabel.resolveFrom(context)),
         ),
         trailingChevron: false,
@@ -251,7 +251,7 @@ class _InoreaderPageState extends State<InoreaderPage> {
     ]);
     final syncItems = ListTileGroup([
       MyListTile(
-        title: Text(S.of(context).removeAd),
+        title: Text(AppLocalizations.of(context).removeAd),
         trailing: CupertinoSwitch(
           value: _removeAd,
           onChanged: (v) { setState(() { _removeAd = v; }); },
@@ -259,7 +259,7 @@ class _InoreaderPageState extends State<InoreaderPage> {
         trailingChevron: false,
       ),
       MyListTile(
-        title: Text(S.of(context).fetchLimit),
+        title: Text(AppLocalizations.of(context).fetchLimit),
         trailing: Text(_fetchLimit.toString()),
         trailingChevron: false,
         withDivider: false,
@@ -275,7 +275,7 @@ class _InoreaderPageState extends State<InoreaderPage> {
         trailingChevron: false,
         withDivider: false,
       ),
-    ], title: S.of(context).sync);
+    ], title: AppLocalizations.of(context).sync);
     final saveButton = Selector<SyncModel, bool>(
       selector: (context, syncModel) => syncModel.syncing,
       builder: (context, syncing, child) {
@@ -289,7 +289,7 @@ class _InoreaderPageState extends State<InoreaderPage> {
           MyListTile(
             title: Expanded(child: Center(
               child: Text(
-                S.of(context).save,
+                AppLocalizations.of(context).save,
                 style: saveStyle,
               )
             )),
@@ -307,7 +307,7 @@ class _InoreaderPageState extends State<InoreaderPage> {
           MyListTile(
             title: Expanded(child: Center(
               child: Text(
-                S.of(context).logOut,
+                AppLocalizations.of(context).logOut,
                 style: TextStyle(
                   color: (_validating || syncing)
                     ? CupertinoColors.secondaryLabel.resolveFrom(context)

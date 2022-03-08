@@ -3,7 +3,7 @@ import 'package:fluent_reader_lite/components/badge.dart';
 import 'package:fluent_reader_lite/components/mark_all_action_sheet.dart';
 import 'package:fluent_reader_lite/components/responsive_action_sheet.dart';
 import 'package:fluent_reader_lite/components/sync_control.dart';
-import 'package:fluent_reader_lite/generated/l10n.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:fluent_reader_lite/models/feed.dart';
 import 'package:fluent_reader_lite/models/feeds_model.dart';
 import 'package:fluent_reader_lite/models/item.dart';
@@ -91,12 +91,12 @@ class _ItemListPageState extends State<ItemListPage> {
       builder: (context) {
         final feed = getFeed();
         final sheet = CupertinoActionSheet(
-          title: Text(S.of(context).filter),
+          title: Text(AppLocalizations.of(context).filter),
           actions: [
             CupertinoActionSheetAction(
               child: Row(children: [
                 Icon(CupertinoIcons.today),
-                Text(S.of(context).allArticles),
+                Text(AppLocalizations.of(context).allArticles),
                 _iconPadding,
               ], mainAxisAlignment: MainAxisAlignment.spaceBetween),
               onPressed: () { 
@@ -108,7 +108,7 @@ class _ItemListPageState extends State<ItemListPage> {
             CupertinoActionSheetAction(
               child: Row(children: [
                 Icon(Icons.radio_button_checked),
-                Text(S.of(context).unreadOnly),
+                Text(AppLocalizations.of(context).unreadOnly),
                 _iconPadding,
               ], mainAxisAlignment: MainAxisAlignment.spaceBetween),
               onPressed: () { 
@@ -120,7 +120,7 @@ class _ItemListPageState extends State<ItemListPage> {
             CupertinoActionSheetAction(
               child: Row(children: [
                 Icon(CupertinoIcons.star_fill),
-                Text(S.of(context).starredOnly),
+                Text(AppLocalizations.of(context).starredOnly),
                 _iconPadding,
               ], mainAxisAlignment: MainAxisAlignment.spaceBetween),
               onPressed: () { 
@@ -133,7 +133,7 @@ class _ItemListPageState extends State<ItemListPage> {
               isDestructiveAction: true,
               child: Row(children: [
                 Icon(CupertinoIcons.search, color: CupertinoColors.destructiveRed),
-                Text(feed.search.length > 0 ? S.of(context).editKeyword : S.of(context).search),
+                Text(feed.search.length > 0 ? AppLocalizations.of(context).editKeyword : AppLocalizations.of(context).search),
                 _iconPadding,
               ], mainAxisAlignment: MainAxisAlignment.spaceBetween),
               onPressed: () { 
@@ -145,7 +145,7 @@ class _ItemListPageState extends State<ItemListPage> {
               isDestructiveAction: true,
               child: Row(children: [
                 Icon(CupertinoIcons.clear_fill, color: CupertinoColors.destructiveRed),
-                Text(S.of(context).clearSearch),
+                Text(AppLocalizations.of(context).clearSearch),
                 _iconPadding,
               ], mainAxisAlignment: MainAxisAlignment.spaceBetween),
               onPressed: () { 
@@ -156,7 +156,7 @@ class _ItemListPageState extends State<ItemListPage> {
             ),
           ],
           cancelButton: CupertinoActionSheetAction(
-            child: Text(S.of(context).cancel),
+            child: Text(AppLocalizations.of(context).cancel),
             onPressed: () { 
               Navigator.of(context, rootNavigator: true).pop();
             },
@@ -170,9 +170,9 @@ class _ItemListPageState extends State<ItemListPage> {
   void _editSearchKeyword() async {
     String keyword = await Navigator.of(context).push(CupertinoPageRoute(
       builder: (context) => TextEditorPage(
-        S.of(context).editKeyword,
+        AppLocalizations.of(context).editKeyword,
         (v) => v.trim().length > 0,
-        saveText: S.of(context).search,
+        saveText: AppLocalizations.of(context).search,
         initialValue: getFeed().search,
         navigationBarColor: CupertinoColors.systemBackground,
         autocorrect: true,
@@ -192,7 +192,7 @@ class _ItemListPageState extends State<ItemListPage> {
             CupertinoActionSheetAction(
               child: Row(children: [
                 Icon(item.hasRead ? Icons.radio_button_checked : Icons.radio_button_unchecked),
-                Text(item.hasRead ? S.of(context).markUnread : S.of(context).markRead),
+                Text(item.hasRead ? AppLocalizations.of(context).markUnread : AppLocalizations.of(context).markRead),
                 _iconPadding,
               ], mainAxisAlignment: MainAxisAlignment.spaceBetween),
               onPressed: () { 
@@ -203,7 +203,7 @@ class _ItemListPageState extends State<ItemListPage> {
             CupertinoActionSheetAction(
               child: Row(children: [
                 Icon(item.starred ? CupertinoIcons.star : CupertinoIcons.star_fill),
-                Text(item.starred ? S.of(context).unstar : S.of(context).star),
+                Text(item.starred ? AppLocalizations.of(context).unstar : AppLocalizations.of(context).star),
                 _iconPadding,
               ], mainAxisAlignment: MainAxisAlignment.spaceBetween),
               onPressed: () { 
@@ -214,7 +214,7 @@ class _ItemListPageState extends State<ItemListPage> {
             CupertinoActionSheetAction(
               child: Row(children: [
                 Icon(CupertinoIcons.arrow_up),
-                Text(S.of(context).markAbove),
+                Text(AppLocalizations.of(context).markAbove),
                 _iconPadding,
               ], mainAxisAlignment: MainAxisAlignment.spaceBetween),
               onPressed: () { 
@@ -225,7 +225,7 @@ class _ItemListPageState extends State<ItemListPage> {
             CupertinoActionSheetAction(
               child: Row(children: [
                 Icon(CupertinoIcons.arrow_down),
-                Text(S.of(context).markBelow),
+                Text(AppLocalizations.of(context).markBelow),
                 _iconPadding,
               ], mainAxisAlignment: MainAxisAlignment.spaceBetween),
               onPressed: () { 
@@ -236,7 +236,7 @@ class _ItemListPageState extends State<ItemListPage> {
             CupertinoActionSheetAction(
               child: Row(children: [
                 Icon(CupertinoIcons.share),
-                Text(S.of(context).share),
+                Text(AppLocalizations.of(context).share),
                 _iconPadding,
               ], mainAxisAlignment: MainAxisAlignment.spaceBetween),
               onPressed: () { 
@@ -252,7 +252,7 @@ class _ItemListPageState extends State<ItemListPage> {
             ),
           ],
           cancelButton: CupertinoActionSheetAction(
-            child: Text(S.of(context).cancel),
+            child: Text(AppLocalizations.of(context).cancel),
             onPressed: () { 
               Navigator.of(context, rootNavigator: true).pop();
             },
@@ -268,13 +268,13 @@ class _ItemListPageState extends State<ItemListPage> {
       String text;
       switch (getFeed().filterType) {
         case FilterType.Unread:
-          text = S.of(context).unread;
+          text = AppLocalizations.of(context).unread;
           break;
         case FilterType.Starred:
-          text = S.of(context).starred;
+          text = AppLocalizations.of(context).starred;
           break;
         default:
-          text = S.of(context).all;
+          text = AppLocalizations.of(context).all;
           break;
       }
       return Text(text, overflow: TextOverflow.ellipsis);
@@ -332,7 +332,7 @@ class _ItemListPageState extends State<ItemListPage> {
               padding: EdgeInsets.zero,
               child: Icon(
                 CupertinoIcons.checkmark_circle,
-                semanticLabel: S.of(context).markAll,
+                semanticLabel: AppLocalizations.of(context).markAll,
               ),
               onPressed: _openMarkAllModal,
             ),
@@ -344,7 +344,7 @@ class _ItemListPageState extends State<ItemListPage> {
                   child: Icon((feed.filterType != FilterType.All || feed.search.length > 0)
                     ? CupertinoIcons.line_horizontal_3_decrease_circle_fill
                     : CupertinoIcons.line_horizontal_3_decrease_circle,
-                    semanticLabel: S.of(context).filter,
+                    semanticLabel: AppLocalizations.of(context).filter,
                   ),
                   onPressed: _openFilterModal,
                 );
@@ -380,7 +380,7 @@ class _ItemListPageState extends State<ItemListPage> {
           padding: EdgeInsets.symmetric(vertical: 20),
           child: Center(
             child: feed.allLoaded
-              ? Text(S.of(context).allLoaded, style: TextStyle(
+              ? Text(AppLocalizations.of(context).allLoaded, style: TextStyle(
                   color: CupertinoColors.tertiaryLabel.resolveFrom(context),
                 ))
               : CupertinoActivityIndicator()

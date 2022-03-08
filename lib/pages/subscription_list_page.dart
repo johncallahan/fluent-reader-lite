@@ -3,7 +3,7 @@ import 'package:fluent_reader_lite/components/mark_all_action_sheet.dart';
 import 'package:fluent_reader_lite/components/my_list_tile.dart';
 import 'package:fluent_reader_lite/components/subscription_item.dart';
 import 'package:fluent_reader_lite/components/sync_control.dart';
-import 'package:fluent_reader_lite/generated/l10n.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:fluent_reader_lite/models/source.dart';
 import 'package:fluent_reader_lite/models/sources_model.dart';
 import 'package:fluent_reader_lite/models/sync_model.dart';
@@ -82,7 +82,7 @@ class _SubscriptionListPageState extends State<SubscriptionListPage> {
         });
       } else if (result.length > 1) {
         setState(() {
-          title = S.of(context).uncategorized;
+          title = AppLocalizations.of(context).uncategorized;
           sids = Global.groupsModel.uncategorized;
         });
       } else {
@@ -147,7 +147,7 @@ class _SubscriptionListPageState extends State<SubscriptionListPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    S.of(context).unreadSourceTip,
+                    AppLocalizations.of(context).unreadSourceTip,
                     style: TextStyle(
                       color: CupertinoColors.label.resolveFrom(context),
                       fontWeight: FontWeight.bold,
@@ -157,7 +157,7 @@ class _SubscriptionListPageState extends State<SubscriptionListPage> {
                   CupertinoButton(
                     minSize: 28,
                     padding: EdgeInsets.zero,
-                    child: Text(S.of(context).confirm),
+                    child: Text(AppLocalizations.of(context).confirm),
                     onPressed: _dismissTip,
                   ),
                 ],
@@ -183,7 +183,7 @@ class _SubscriptionListPageState extends State<SubscriptionListPage> {
                 : MediaQuery.of(context).size.width - 60,
             ),
             child: Text(
-              title ?? S.of(context).subscriptions, 
+              title ?? AppLocalizations.of(context).subscriptions, 
               overflow: TextOverflow.ellipsis,
             ),
           ),
@@ -203,7 +203,7 @@ class _SubscriptionListPageState extends State<SubscriptionListPage> {
       leading: CupertinoButton(
         minSize: 36,
         padding: EdgeInsets.zero,
-        child: Text(S.of(context).groups),
+        child: Text(AppLocalizations.of(context).groups),
         onPressed: _openGroups,
       ),
       trailing: Container(
@@ -215,7 +215,7 @@ class _SubscriptionListPageState extends State<SubscriptionListPage> {
               padding: EdgeInsets.zero,
               child: Icon(
                 CupertinoIcons.checkmark_circle,
-                semanticLabel: S.of(context).markAll,
+                semanticLabel: AppLocalizations.of(context).markAll,
               ),
               onPressed: _openMarkAllModal,
             ),
@@ -223,7 +223,7 @@ class _SubscriptionListPageState extends State<SubscriptionListPage> {
               padding: EdgeInsets.zero,
               child: Icon(
                 CupertinoIcons.settings,
-                semanticLabel: S.of(context).settings,
+                semanticLabel: AppLocalizations.of(context).settings,
               ),
               onPressed: _openSettings,
             ),
@@ -275,8 +275,8 @@ class _SubscriptionListPageState extends State<SubscriptionListPage> {
                 children: [
                   Text(
                     syncModel.lastSyncSuccess
-                      ? S.of(context).lastSyncSuccess
-                      : S.of(context).lastSyncFailure,
+                      ? AppLocalizations.of(context).lastSyncSuccess
+                      : AppLocalizations.of(context).lastSyncFailure,
                     style: syncStyle,
                   ),
                   Text(
@@ -303,7 +303,7 @@ class _SubscriptionListPageState extends State<SubscriptionListPage> {
               .map((sid) => sourcesModel.getSource(sid))
               .fold(0, (c, s) => c + s.unreadCount);
             return SliverToBoxAdapter(child: MyListTile(
-              title: Text(S.of(context).allArticles),
+              title: Text(AppLocalizations.of(context).allArticles),
               trailing: count > 0 ? Badge(count) : null,
               trailingChevron: false,
               onTap: () async { 

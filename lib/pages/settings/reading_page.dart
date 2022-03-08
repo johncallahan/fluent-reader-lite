@@ -1,6 +1,6 @@
 import 'package:fluent_reader_lite/components/list_tile_group.dart';
 import 'package:fluent_reader_lite/components/my_list_tile.dart';
-import 'package:fluent_reader_lite/generated/l10n.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:fluent_reader_lite/utils/colors.dart';
 import 'package:fluent_reader_lite/utils/store.dart';
 import 'package:flutter/cupertino.dart';
@@ -18,12 +18,12 @@ class _ReadingPageState extends State<ReadingPage> {
     return CupertinoPageScaffold(
       backgroundColor: MyColors.background,
       navigationBar: CupertinoNavigationBar(
-        middle: Text(S.of(context).reading),
+        middle: Text(AppLocalizations.of(context).reading),
       ),
       child: ListView(children: [
         ListTileGroup([
           MyListTile(
-            title: Text(S.of(context).fontSize),
+            title: Text(AppLocalizations.of(context).fontSize),
             trailing: Text(_fontSize.toString()),
             trailingChevron: false,
             withDivider: false,
@@ -40,7 +40,7 @@ class _ReadingPageState extends State<ReadingPage> {
             trailingChevron: false,
             withDivider: false,
           ),
-        ], title: S.of(context).preferences),
+        ], title: AppLocalizations.of(context).preferences),
       ]),
     );
   }

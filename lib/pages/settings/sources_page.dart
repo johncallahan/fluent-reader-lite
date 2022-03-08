@@ -1,7 +1,7 @@
 import 'package:fluent_reader_lite/components/favicon.dart';
 import 'package:fluent_reader_lite/components/list_tile_group.dart';
 import 'package:fluent_reader_lite/components/my_list_tile.dart';
-import 'package:fluent_reader_lite/generated/l10n.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:fluent_reader_lite/models/sources_model.dart';
 import 'package:fluent_reader_lite/utils/colors.dart';
 import 'package:fluent_reader_lite/utils/utils.dart';
@@ -14,7 +14,7 @@ class SourcesPage extends StatelessWidget {
     return CupertinoPageScaffold(
       backgroundColor: MyColors.background,
       navigationBar: CupertinoNavigationBar(
-        middle: Text(S.of(context).subscriptions),
+        middle: Text(AppLocalizations.of(context).subscriptions),
       ),
       child: ListView(children: [
         Consumer<SourcesModel>(

@@ -55,12 +55,20 @@ The following features from the desktop app are **NOT** present:
 
 ## Development
 
+```shell
+% flutter clean
+% flutter gen-l10n
+% flutter run
+```
+
+You don't need an l10n.yaml file because defaults are used (generated files in ignored .dart_tool directory)
+
 ### Contribute
 
-Help make Fluent Reader better by reporting bugs or opening feature requests through [GitHub issues](https://github.com/yang991178/fluent-reader-lite/issues). 
+Help make Fluent Reader better by reporting bugs or opening feature requests through [GitHub issues](https://github.com/yang991178/fluent-reader-lite/issues).
 
-You can also help internationalize the app by providing [translations into additional languages](https://github.com/yang991178/fluent-reader-lite/tree/master/lib/l10n). 
-You can read more about ARB files [here](https://localizely.com/flutter-arb) or [here](https://github.com/google/app-resource-bundle/wiki/ApplicationResourceBundleSpecification). 
+You can also help internationalize the app by providing [translations into additional languages](https://github.com/yang991178/fluent-reader-lite/tree/master/lib/l10n).
+You can read more about ARB files [here](https://localizely.com/flutter-arb) or [here](https://github.com/google/app-resource-bundle/wiki/ApplicationResourceBundleSpecification).
 
 If you enjoy using this app, consider supporting its development by donating through [Paypal](https://www.paypal.me/yang991178) or [Alipay](https://hyliu.me/fluent-reader/imgs/alipay.jpg).
 

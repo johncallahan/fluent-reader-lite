@@ -20,13 +20,14 @@ import 'package:fluent_reader_lite/utils/store.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-import 'generated/l10n.dart';
 import 'models/global_model.dart';
+
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -103,7 +104,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           localizationsDelegates: [
             // ... app-specific localization delegate[s] here
-            S.delegate,
+            AppLocalizations.delegate,
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
@@ -113,7 +114,6 @@ class MyApp extends StatelessWidget {
             const Locale("de"),
             const Locale("en"),
             const Locale("es"),
-            const Locale("zh"),
           ],
           localeResolutionCallback: (_locale, supportedLocales) {
             _locale = Locale(_locale.languageCode);

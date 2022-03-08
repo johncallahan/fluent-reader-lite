@@ -23,6 +23,14 @@
     "markAbove": "Markiere darüber als gelesen",
     "markBelow": "Markiere darunter als gelesen",
     "daysAgo": "{days,plural, =1{Älter als ein Tag}other{Älter als {days} Tage}}",
+    "@daysAgo": {
+      "description": "Number of day(s) ago",
+      "placeholders": {
+        "days": {
+          "type": "int"
+        }
+      }
+    },
     "star": "Favorisieren",
     "unstar": "Favorit entfernen",
     "share": "Teilen",
