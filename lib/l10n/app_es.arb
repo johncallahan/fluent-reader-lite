@@ -102,5 +102,6 @@
     "unreadSourceTip": "Puede hacer una pulsación larga en el título de esta página para alternar entre todas las suscripciones y las no leídas.",
     "uncategorized": "Sin categorizar",
     "showUncategorized": "Mostrar sin categorizar",
-    "serviceExists": "Ya existe este servicio. Por favor, cierre la sesión antes de importar."
+    "serviceExists": "Ya existe este servicio. Por favor, cierre la sesión antes de importar.",
+    "useTabletLayout": "Usar diseño de tableta"
   }

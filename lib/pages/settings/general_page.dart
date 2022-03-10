@@ -78,6 +78,17 @@ class _GeneralPageState extends State<GeneralPage> {
             trailingChevron: false,
           ),
           MyListTile(
+            title: Text(AppLocalizations.of(context).useTabletLayout),
+            trailing: CupertinoSwitch(
+              value: globalModel.useTabletLayout,
+              onChanged: (v) {
+                globalModel.useTabletLayout = v;
+                setState(() {});
+              },
+            ),
+            trailingChevron: false,
+          ),
+          MyListTile(
             title: Text(AppLocalizations.of(context).inAppBrowser),
             trailing: CupertinoSwitch(
               value: globalModel.inAppBrowser,
@@ -109,8 +120,8 @@ class _GeneralPageState extends State<GeneralPage> {
               max: 4,
               divisions: 3,
               value: (globalModel.keepItemsDays ~/ 7).toDouble(),
-              onChanged: (v) { 
-                globalModel.keepItemsDays = (v * 7).toInt(); 
+              onChanged: (v) {
+                globalModel.keepItemsDays = (v * 7).toInt();
                 setState(() { });
               },
             )),

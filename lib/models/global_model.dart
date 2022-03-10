@@ -14,6 +14,7 @@ class GlobalModel with ChangeNotifier {
   bool _syncOnStart = Store.sp.getBool(StoreKeys.SYNC_ON_START) ?? true;
   bool _inAppBrowser = Store.sp.getBool(StoreKeys.IN_APP_BROWSER) ?? Platform.isIOS;
   double _textScale = Store.sp.getDouble(StoreKeys.TEXT_SCALE);
+  bool _useTabletLayout = Store.sp.getBool(StoreKeys.USE_TABLET_LAYOUT) ?? true;
 
   ThemeSetting get theme => _theme;
   set theme(ThemeSetting value) {
@@ -53,6 +54,12 @@ class GlobalModel with ChangeNotifier {
   set inAppBrowser(bool value) {
     _inAppBrowser = value;
     Store.sp.setBool(StoreKeys.IN_APP_BROWSER, value);
+  }
+
+  bool get useTabletLayout => _useTabletLayout;
+  set useTabletLayout(bool value) {
+    _useTabletLayout = value;
+    Store.sp.setBool(StoreKeys.USE_TABLET_LAYOUT, value);
   }
 
   double get textScale => _textScale;

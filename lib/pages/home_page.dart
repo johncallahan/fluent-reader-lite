@@ -161,7 +161,7 @@ class _HomePageState extends State<HomePage> {
         if (!hasService) return SetupPage();
         return ScreenTypeLayout.builder(
           breakpoints: ScreenBreakpoints(
-            tablet: 640,
+            tablet: Global.globalModel.useTabletLayout ? 640 : 800,
             watch: 0,
             desktop: 1600,
           ),

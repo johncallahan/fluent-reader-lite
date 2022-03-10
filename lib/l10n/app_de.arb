@@ -102,5 +102,6 @@
     "unreadSourceTip": "Langdruck auf den Titel dieser Seite zum Wechsel der Ansicht zwischen aller oder ungelesender Abonnements.",
     "uncategorized": "Ohne Kategorie",
     "showUncategorized": "Zeige ohne Kategorie",
-    "serviceExists": "Ein Service ist schon eingestellt. Bitte vor dem Import abmelden."
+    "serviceExists": "Ein Service ist schon eingestellt. Bitte vor dem Import abmelden.",
+    "useTabletLayout": "Verwenden Sie das Tablet-Layout"
   }
