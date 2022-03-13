@@ -39,6 +39,7 @@ abstract class DatabaseHelper {
         snippet TEXT NOT NULL,
         hasRead INTEGER NOT NULL,
         starred INTEGER NOT NULL,
+        pocketed INTEGER NOT NULL,
         creator TEXT,
         thumb TEXT
       );

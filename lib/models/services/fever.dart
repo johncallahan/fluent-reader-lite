@@ -154,6 +154,7 @@ class FeverServiceHandler extends ServiceHandler {
         creator: i["author"],
         hasRead: i["is_read"] == 1,
         starred: i["is_saved"] == 1,
+        pocketed: i["is_pocketed"] == 1,
       );
       // Try to get the thumbnail of the item
       var img = dom.querySelector("img");
@@ -176,15 +177,17 @@ class FeverServiceHandler extends ServiceHandler {
   }
 
   @override
-  Future<Tuple2<Set<String>, Set<String>>> syncItems() async {
+  Future<Tuple3<Set<String>, Set<String>, Set<String>>> syncItems() async {
     final responses = await Future.wait([
       _fetchAPI(params: "&unread_item_ids"),
       _fetchAPI(params: "&saved_item_ids"),
+      _fetchAPI(params: "&pocketed_item_ids"),
     ]);
     final unreadIds = responses[0]["unread_item_ids"];
     final starredIds = responses[1]["saved_item_ids"];
-    return Tuple2(
-        Set.from(unreadIds.split(",")), Set.from(starredIds.split(",")));
+    final pocketedIds = responses[2]["pocketed_item_ids"];
+    return Tuple3(
+        Set.from(unreadIds.split(",")), Set.from(starredIds.split(",")), Set.from(pocketedIds.split(",")));
   }
 
   Future<void> _markItem(RSSItem item, String asType) async {
@@ -238,5 +241,15 @@ class FeverServiceHandler extends ServiceHandler {
   @override
   Future<void> unstar(RSSItem item) async {
     await _markItem(item, "unsaved");
+  }
+
+  @override
+  Future<void> pocket(RSSItem item) async {
+    await _markItem(item, "pocketed");
+  }
+
+  @override
+  Future<void> unpocket(RSSItem item) async {
+    await _markItem(item, "unpocketed");
   }
 }

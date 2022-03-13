@@ -17,8 +17,8 @@ class ItemsModel with ChangeNotifier {
     }
   }
 
-  Future<void> updateItem(String iid, 
-    {Batch batch, bool read, bool starred, local: false}) async {
+  Future<void> updateItem(String iid,
+    {Batch batch, bool read, bool starred, bool pocketed, local: false}) async {
     Map<String, dynamic> updateMap = Map();
     if (_items.containsKey(iid)) {
       final item = _items[iid].clone();
@@ -37,10 +37,18 @@ class ItemsModel with ChangeNotifier {
           else Global.service.unstar(item);
         }
       }
+      if (pocketed != null) {
+        item.pocketed = pocketed;
+        if (!local) {
+          if (pocketed) Global.service.pocket(item);
+          else Global.service.unpocket(item);
+        }
+      }
       _items[iid] = item;
     }
     if (read != null) updateMap["hasRead"] = read ? 1 : 0;
     if (starred != null) updateMap["starred"] = starred ? 1 : 0;
+    if (pocketed != null) updateMap["pocketed"] = pocketed ? 1 : 0;
     if (batch != null) {
       batch.update("items", updateMap, where: "iid = ?", whereArgs: [iid]);
     } else {
@@ -66,7 +74,7 @@ class ItemsModel with ChangeNotifier {
     );
     for (var item in _items.values.toList()) {
       if (sids.length > 0 && !sids.contains(item.source)) continue;
-      if (date != null && 
+      if (date != null &&
         (before ? item.date.compareTo(date) > 0 : item.date.compareTo(date) < 0))
         continue;
       item.hasRead = true;
@@ -97,19 +105,23 @@ class ItemsModel with ChangeNotifier {
     final tuple = await Global.service.syncItems();
     final unreadIds = tuple.item1;
     final starredIds = tuple.item2;
+    final pocketedIds = tuple.item3;
     final rows = await Global.db.query(
       "items",
-      columns: ["iid", "hasRead", "starred"],
-      where: "hasRead = 0 OR starred = 1",
+      columns: ["iid", "hasRead", "starred", "pocketed"],
+      where: "hasRead = 0 OR starred = 1 OR pocketed = 1",
     );
     final batch = Global.db.batch();
     for (var row in rows) {
       final id = row["iid"];
       if (row["hasRead"] == 0 && !unreadIds.remove(id)) {
-        await updateItem(id, read: true, batch: batch, local: true);
+        await updateItem(id, read: true, pocketed: false, batch: batch, local: true);
       }
       if (row["starred"] == 1 && !starredIds.remove(id)) {
         await updateItem(id, starred: false, batch: batch, local: true);
+      }
+      if (row["pocketed"] == 1 && !pocketedIds.remove(id)) {
+        await updateItem(id, pocketed: false, batch: batch, local: true);
       }
     }
     for (var unread in unreadIds) {
@@ -117,6 +129,9 @@ class ItemsModel with ChangeNotifier {
     }
     for (var starred in starredIds) {
       await updateItem(starred, starred: true, batch: batch, local: true);
+    }
+    for (var pocketed in pocketedIds) {
+      await updateItem(pocketed, pocketed: true, batch: batch, local: true);
     }
     notifyListeners();
     await batch.commit(noResult: true);

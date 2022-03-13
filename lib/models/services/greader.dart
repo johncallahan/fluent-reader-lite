@@ -14,6 +14,7 @@ class GReaderServiceHandler extends ServiceHandler {
   static const _ALL_TAG = "user/-/state/com.google/reading-list";
   static const _READ_TAG = "user/-/state/com.google/read";
   static const _STAR_TAG = "user/-/state/com.google/starred";
+  static const _POCKET_TAG = "user/-/state/com.google/pocketed";
 
   String endpoint;
   String username;
@@ -283,7 +284,7 @@ class GReaderServiceHandler extends ServiceHandler {
   }
 
   @override
-  Future<Tuple2<Set<String>, Set<String>>> syncItems() async {
+  Future<Tuple3<Set<String>, Set<String>, Set<String>>> syncItems() async {
     List<Set<String>> results;
     if (inoreaderId != null) {
       results = await Future.wait([
@@ -291,6 +292,8 @@ class GReaderServiceHandler extends ServiceHandler {
             "/reader/api/0/stream/items/ids?output=json&xt=$_READ_TAG&n=1000"),
         _fetchAll(
             "/reader/api/0/stream/items/ids?output=json&it=$_STAR_TAG&n=1000"),
+        _fetchAll(
+            "/reader/api/0/stream/items/ids?output=json&it=$_POCKET_TAG&n=1000"),
       ]);
     } else {
       results = await Future.wait([
@@ -298,9 +301,11 @@ class GReaderServiceHandler extends ServiceHandler {
             "/reader/api/0/stream/items/ids?output=json&s=$_ALL_TAG&xt=$_READ_TAG&n=1000"),
         _fetchAll(
             "/reader/api/0/stream/items/ids?output=json&s=$_STAR_TAG&n=1000"),
+        _fetchAll(
+            "/reader/api/0/stream/items/ids?output=json&s=$_POCKET_TAG&n=1000"),
       ]);
     }
-    return Tuple2.fromList(results);
+    return Tuple3.fromList(results);
   }
 
   @override
@@ -359,5 +364,15 @@ class GReaderServiceHandler extends ServiceHandler {
   @override
   Future<void> unstar(RSSItem item) async {
     await _editTag(item.id, _STAR_TAG, add: false);
+  }
+
+  @override
+  Future<void> pocket(RSSItem item) async {
+    await _editTag(item.id, _POCKET_TAG);
+  }
+
+  @override
+  Future<void> unpocket(RSSItem item) async {
+    await _editTag(item.id, _POCKET_TAG, add: false);
   }
 }

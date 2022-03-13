@@ -21,6 +21,7 @@ class FeedPage extends StatelessWidget {
             final swipeOptons = [
               Tuple2(AppLocalizations.of(context).toggleRead, ItemSwipeOption.ToggleRead),
               Tuple2(AppLocalizations.of(context).toggleStar, ItemSwipeOption.ToggleStar),
+              Tuple2(AppLocalizations.of(context).togglePocket, ItemSwipeOption.TogglePocket),
               Tuple2(AppLocalizations.of(context).share, ItemSwipeOption.Share),
               Tuple2(AppLocalizations.of(context).openExternal, ItemSwipeOption.OpenExternal),
               Tuple2(AppLocalizations.of(context).openMenu, ItemSwipeOption.OpenMenu),
@@ -29,7 +30,7 @@ class FeedPage extends StatelessWidget {
               ListTileGroup.fromOptions(
                 swipeOptons,
                 isToRight ? feedsModel.swipeR : feedsModel.swipeL,
-                (v) { 
+                (v) {
                   if (isToRight) feedsModel.swipeR = v;
                   else feedsModel.swipeL = v;
                 },
@@ -53,6 +54,7 @@ class FeedPage extends StatelessWidget {
           final swipeOptons = {
             ItemSwipeOption.ToggleRead: AppLocalizations.of(context).toggleRead,
             ItemSwipeOption.ToggleStar: AppLocalizations.of(context).toggleStar,
+            ItemSwipeOption.TogglePocket: AppLocalizations.of(context).togglePocket,
             ItemSwipeOption.Share: AppLocalizations.of(context).share,
             ItemSwipeOption.OpenExternal: AppLocalizations.of(context).openExternal,
             ItemSwipeOption.OpenMenu: AppLocalizations.of(context).openMenu,

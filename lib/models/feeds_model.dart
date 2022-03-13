@@ -7,7 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'item.dart';
 
 enum ItemSwipeOption {
-  ToggleRead, ToggleStar, Share, OpenMenu, OpenExternal,
+  ToggleRead, ToggleStar, TogglePocket, Share, OpenMenu, OpenExternal,
 }
 
 class FeedsModel with ChangeNotifier {

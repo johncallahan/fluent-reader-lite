@@ -48,7 +48,7 @@ class _ItemListPageState extends State<ItemListPage> {
     super.initState();
     widget.scrollTopNotifier.addListener(_onScrollTop);
   }
-  
+
   @override
   void dispose() {
     widget.scrollTopNotifier.removeListener(_onScrollTop);
@@ -99,7 +99,7 @@ class _ItemListPageState extends State<ItemListPage> {
                 Text(AppLocalizations.of(context).allArticles),
                 _iconPadding,
               ], mainAxisAlignment: MainAxisAlignment.spaceBetween),
-              onPressed: () { 
+              onPressed: () {
                 Navigator.of(context, rootNavigator: true).pop();
                 feed.setFilter(FilterType.All);
                 _onScrollTop();
@@ -111,7 +111,7 @@ class _ItemListPageState extends State<ItemListPage> {
                 Text(AppLocalizations.of(context).unreadOnly),
                 _iconPadding,
               ], mainAxisAlignment: MainAxisAlignment.spaceBetween),
-              onPressed: () { 
+              onPressed: () {
                 Navigator.of(context, rootNavigator: true).pop();
                 feed.setFilter(FilterType.Unread);
                 _onScrollTop();
@@ -123,7 +123,7 @@ class _ItemListPageState extends State<ItemListPage> {
                 Text(AppLocalizations.of(context).starredOnly),
                 _iconPadding,
               ], mainAxisAlignment: MainAxisAlignment.spaceBetween),
-              onPressed: () { 
+              onPressed: () {
                 Navigator.of(context, rootNavigator: true).pop();
                 feed.setFilter(FilterType.Starred);
                 _onScrollTop();
@@ -136,7 +136,7 @@ class _ItemListPageState extends State<ItemListPage> {
                 Text(feed.search.length > 0 ? AppLocalizations.of(context).editKeyword : AppLocalizations.of(context).search),
                 _iconPadding,
               ], mainAxisAlignment: MainAxisAlignment.spaceBetween),
-              onPressed: () { 
+              onPressed: () {
                 Navigator.of(context, rootNavigator: true).pop();
                 _editSearchKeyword();
               },
@@ -148,7 +148,7 @@ class _ItemListPageState extends State<ItemListPage> {
                 Text(AppLocalizations.of(context).clearSearch),
                 _iconPadding,
               ], mainAxisAlignment: MainAxisAlignment.spaceBetween),
-              onPressed: () { 
+              onPressed: () {
                 Navigator.of(context, rootNavigator: true).pop();
                 feed.performSearch("");
                 _onScrollTop();
@@ -157,7 +157,7 @@ class _ItemListPageState extends State<ItemListPage> {
           ],
           cancelButton: CupertinoActionSheetAction(
             child: Text(AppLocalizations.of(context).cancel),
-            onPressed: () { 
+            onPressed: () {
               Navigator.of(context, rootNavigator: true).pop();
             },
           ),
@@ -195,7 +195,7 @@ class _ItemListPageState extends State<ItemListPage> {
                 Text(item.hasRead ? AppLocalizations.of(context).markUnread : AppLocalizations.of(context).markRead),
                 _iconPadding,
               ], mainAxisAlignment: MainAxisAlignment.spaceBetween),
-              onPressed: () { 
+              onPressed: () {
                 Navigator.of(context, rootNavigator: true).pop();
                 Global.itemsModel.updateItem(item.id, read: !item.hasRead);
               },
@@ -206,9 +206,20 @@ class _ItemListPageState extends State<ItemListPage> {
                 Text(item.starred ? AppLocalizations.of(context).unstar : AppLocalizations.of(context).star),
                 _iconPadding,
               ], mainAxisAlignment: MainAxisAlignment.spaceBetween),
-              onPressed: () { 
+              onPressed: () {
                 Navigator.of(context, rootNavigator: true).pop();
                 Global.itemsModel.updateItem(item.id, starred: !item.starred);
+              },
+            ),
+            CupertinoActionSheetAction(
+              child: Row(children: [
+                Icon(item.pocketed ? CupertinoIcons.folder : CupertinoIcons.folder_fill),
+                Text(item.pocketed ? AppLocalizations.of(context).unpocket : AppLocalizations.of(context).pocket),
+                _iconPadding,
+              ], mainAxisAlignment: MainAxisAlignment.spaceBetween),
+              onPressed: () {
+                Navigator.of(context, rootNavigator: true).pop();
+                Global.itemsModel.updateItem(item.id, pocketed: !item.pocketed);
               },
             ),
             CupertinoActionSheetAction(
@@ -217,7 +228,7 @@ class _ItemListPageState extends State<ItemListPage> {
                 Text(AppLocalizations.of(context).markAbove),
                 _iconPadding,
               ], mainAxisAlignment: MainAxisAlignment.spaceBetween),
-              onPressed: () { 
+              onPressed: () {
                 Navigator.of(context, rootNavigator: true).pop();
                 Global.itemsModel.markAllRead(getFeed().sids, date: item.date, before: false);
               },
@@ -228,7 +239,7 @@ class _ItemListPageState extends State<ItemListPage> {
                 Text(AppLocalizations.of(context).markBelow),
                 _iconPadding,
               ], mainAxisAlignment: MainAxisAlignment.spaceBetween),
-              onPressed: () { 
+              onPressed: () {
                 Navigator.of(context, rootNavigator: true).pop();
                 Global.itemsModel.markAllRead(getFeed().sids, date: item.date);
               },
@@ -239,7 +250,7 @@ class _ItemListPageState extends State<ItemListPage> {
                 Text(AppLocalizations.of(context).share),
                 _iconPadding,
               ], mainAxisAlignment: MainAxisAlignment.spaceBetween),
-              onPressed: () { 
+              onPressed: () {
                 Navigator.of(context, rootNavigator: true).pop();
                 final media = MediaQuery.of(context);
                 Share.share(
@@ -253,7 +264,7 @@ class _ItemListPageState extends State<ItemListPage> {
           ],
           cancelButton: CupertinoActionSheetAction(
             child: Text(AppLocalizations.of(context).cancel),
-            onPressed: () { 
+            onPressed: () {
               Navigator.of(context, rootNavigator: true).pop();
             },
           ),
@@ -294,7 +305,7 @@ class _ItemListPageState extends State<ItemListPage> {
               : MediaQuery.of(context).size.width - 60,
           ),
           child: title == null ? _titleFromFilter() : Text(
-            title, 
+            title,
             overflow: TextOverflow.ellipsis,
           ),
         ),
@@ -400,5 +411,5 @@ class _ItemListPageState extends State<ItemListPage> {
         )),
       );
   }
-  
+
 }

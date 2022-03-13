@@ -49,7 +49,7 @@ class _ArticleItemState extends State<ArticleItem> {
         var navigator = Global.responsiveNavigator(context);
         while (navigator.canPop()) navigator.pop();
         navigator.pushNamed(
-          "/article", 
+          "/article",
           arguments: Tuple2(widget.item.id, isSource)
         );
       }
@@ -83,6 +83,14 @@ class _ArticleItemState extends State<ArticleItem> {
       color: MyColors.indicatorOrange,
     ),
   );
+  static final _pocketedIndicator = Padding(
+    padding: EdgeInsets.symmetric(horizontal: 4),
+    child: Icon(
+      CupertinoIcons.folder_fill,
+      size: 9,
+      color: MyColors.indicatorOrange,
+    ),
+  );
 
   IconData _getDismissIcon(ItemSwipeOption option) {
     switch (option) {
@@ -94,6 +102,10 @@ class _ArticleItemState extends State<ArticleItem> {
         return widget.item.starred
           ? CupertinoIcons.star
           : CupertinoIcons.star_fill;
+      case ItemSwipeOption.TogglePocket:
+        return widget.item.pocketed
+          ? CupertinoIcons.folder
+          : CupertinoIcons.folder_fill;
       case ItemSwipeOption.Share:
         return CupertinoIcons.share;
       case ItemSwipeOption.OpenMenu:
@@ -113,6 +125,10 @@ class _ArticleItemState extends State<ArticleItem> {
       case ItemSwipeOption.ToggleStar:
         await Future.delayed(Duration(milliseconds: 200));
         Global.itemsModel.updateItem(widget.item.id, starred: !widget.item.starred);
+        break;
+      case ItemSwipeOption.TogglePocket:
+        await Future.delayed(Duration(milliseconds: 200));
+        Global.itemsModel.updateItem(widget.item.id, pocketed: !widget.item.pocketed);
         break;
       case ItemSwipeOption.Share:
         Share.share(widget.item.link);
@@ -173,6 +189,7 @@ class _ArticleItemState extends State<ArticleItem> {
           Row(children: [
             if (!Global.feedsModel.dimRead && !widget.item.hasRead) _unreadIndicator,
             if (widget.item.starred) _starredIndicator,
+            if (widget.item.pocketed) _pocketedIndicator,
             TimeText(widget.item.date, style: _descStyle),
           ]),
         ],
@@ -183,7 +200,7 @@ class _ArticleItemState extends State<ArticleItem> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            widget.item.title, 
+            widget.item.title,
             style: _titleStyle,
           ),
           if (Global.feedsModel.showSnippet && widget.item.snippet.length > 0) Text(
@@ -201,8 +218,8 @@ class _ArticleItemState extends State<ArticleItem> {
       onLongPress: _openActionSheet,
       onTap: _openArticle,
       child: Container(
-        color: pressed 
-          ? CupertinoColors.systemGrey4.resolveFrom(context) 
+        color: pressed
+          ? CupertinoColors.systemGrey4.resolveFrom(context)
           : CupertinoColors.systemBackground.resolveFrom(context),
         child: Column(children: [
           Padding(

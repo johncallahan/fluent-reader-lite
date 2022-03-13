@@ -8,19 +8,20 @@ class RSSItem {
   String snippet;
   bool hasRead;
   bool starred;
+  bool pocketed;
   String creator; // Optional
   String thumb; // Optional
 
   RSSItem({
     this.id, this.source, this.title, this.link, this.date,
-    this.content, this.snippet, this.hasRead, this.starred,
+    this.content, this.snippet, this.hasRead, this.starred, this.pocketed,
     this.creator, this.thumb
   });
 
   RSSItem clone() {
     return RSSItem(
       id: id, source: source, title: title, link: link, date: date,
-      content: content, snippet: snippet, hasRead: hasRead, starred: starred,
+      content: content, snippet: snippet, hasRead: hasRead, starred: starred, pocketed: pocketed,
       creator: creator, thumb: thumb,
     );
   }
@@ -36,6 +37,7 @@ class RSSItem {
       "snippet": snippet,
       "hasRead": hasRead ? 1 : 0,
       "starred": starred ? 1 : 0,
+      "pocketed": pocketed ? 1 : 0,
       "creator": creator,
       "thumb": thumb,
     };
@@ -51,6 +53,7 @@ class RSSItem {
     snippet = map["snippet"];
     hasRead = map["hasRead"] != 0;
     starred = map["starred"] != 0;
+    pocketed = map["pocketed"] != 0;
     creator = map["creator"];
     thumb = map["thumb"];
   }

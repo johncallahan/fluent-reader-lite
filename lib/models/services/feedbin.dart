@@ -18,7 +18,7 @@ class FeedbinServiceHandler extends ServiceHandler {
   String password;
   int fetchLimit;
   int _lastId;
-  Tuple2<Set<String>, Set<String>> _lastSynced;
+  Tuple3<Set<String>, Set<String>, Set<String>> _lastSynced;
 
   FeedbinServiceHandler() {
     endpoint = Store.sp.getString(StoreKeys.ENDPOINT);
@@ -194,18 +194,22 @@ class FeedbinServiceHandler extends ServiceHandler {
   }
 
   @override
-  Future<Tuple2<Set<String>, Set<String>>> syncItems() async {
+  Future<Tuple3<Set<String>, Set<String>, Set<String>>> syncItems() async {
     final responses = await Future.wait([
       _fetchAPI("unread_entries.json"),
       _fetchAPI("starred_entries.json"),
+      _fetchAPI("pocketed_entries.json"),
     ]);
     assert(responses[0].statusCode == 200);
     assert(responses[1].statusCode == 200);
+    assert(responses[2].statusCode == 200);
     final unread = jsonDecode(responses[0].body);
     final starred = jsonDecode(responses[1].body);
-    _lastSynced = Tuple2(
+    final pocketed = jsonDecode(responses[2].body);
+    _lastSynced = Tuple3(
       Set.from(unread.map((i) => i.toString())),
       Set.from(starred.map((i) => i.toString())),
+      Set.from(pocketed.map((i) => i.toString())),
     );
     return _lastSynced;
   }
@@ -249,5 +253,15 @@ class FeedbinServiceHandler extends ServiceHandler {
   @override
   Future<void> unstar(RSSItem item) async {
     await _markItems("starred", "DELETE", [item.id]);
+  }
+
+  @override
+  Future<void> pocket(RSSItem item) async {
+    await _markItems("pocketed", "POST", [item.id]);
+  }
+
+  @override
+  Future<void> unpocket(RSSItem item) async {
+    await _markItems("pocketed", "DELETE", [item.id]);
   }
 }
