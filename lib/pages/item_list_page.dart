@@ -130,6 +130,18 @@ class _ItemListPageState extends State<ItemListPage> {
               },
             ),
             CupertinoActionSheetAction(
+              child: Row(children: [
+                Icon(CupertinoIcons.folder_fill),
+                Text(AppLocalizations.of(context).pocketedOnly),
+                _iconPadding,
+              ], mainAxisAlignment: MainAxisAlignment.spaceBetween),
+              onPressed: () {
+                Navigator.of(context, rootNavigator: true).pop();
+                feed.setFilter(FilterType.Pocketed);
+                _onScrollTop();
+              },
+            ),
+            CupertinoActionSheetAction(
               isDestructiveAction: true,
               child: Row(children: [
                 Icon(CupertinoIcons.search, color: CupertinoColors.destructiveRed),
@@ -283,6 +295,9 @@ class _ItemListPageState extends State<ItemListPage> {
           break;
         case FilterType.Starred:
           text = AppLocalizations.of(context).starred;
+          break;
+        case FilterType.Pocketed:
+          text = AppLocalizations.of(context).pocketed;
           break;
         default:
           text = AppLocalizations.of(context).all;

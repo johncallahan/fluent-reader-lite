@@ -5,7 +5,7 @@ import 'package:tuple/tuple.dart';
 import 'item.dart';
 
 enum FilterType {
-  All, Unread, Starred
+  All, Unread, Pocketed, Starred
 }
 
 const _LOAD_LIMIT = 50;
@@ -40,6 +40,8 @@ class RSSFeed {
       where.add("hasRead = 0");
     } else if (filterType == FilterType.Starred) {
       where.add("starred = 1");
+    } else if (filterType == FilterType.Pocketed) {
+      where.add("pocketed = 1");
     }
     if (search != "") {
       where.add("(UPPER(title) LIKE ? OR UPPER(snippet) LIKE ?)");
@@ -54,6 +56,7 @@ class RSSFeed {
     if (sids.length > 0 && !sids.contains(item.source)) return false;
     if (filterType == FilterType.Unread && item.hasRead) return false;
     if (filterType == FilterType.Starred && !item.starred) return false;
+    if (filterType == FilterType.Pocketed && !item.pocketed) return false;
     if (search != "") {
       var keyword = search.toUpperCase();
       if (item.title.toUpperCase().contains(keyword)) return true;
